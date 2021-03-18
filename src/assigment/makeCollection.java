@@ -5,32 +5,40 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.*;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-public class Main {
-
-	public static void main(String[] args)
-			throws ParserConfigurationException, IOException, TransformerException {
-
+public class makeCollection {
+	
+	private static String fileName;
+	
+	public makeCollection(String filePath) {
+		fileName = filePath;
+	}
+	
+	public static void createXML() throws ParserConfigurationException, IOException, TransformerException {
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-
 		Document doc = docBuilder.newDocument();
 		Element docs = doc.createElement("docs");
 		doc.appendChild(docs);
 
-		final File folder = new File("C:\\Users\\EO\\Desktop\\수업 자료\\오픈소스SW\\SimpleIR\\2주차 실습 html");
+		final File folder = new File(fileName);
 		int fileNum = 0;
 		for (final File fileEntry : folder.listFiles()) {
 			if (!fileEntry.isDirectory()) {// fileEntry에 각 html파일이 들어있음
@@ -63,6 +71,11 @@ public class Main {
 			}
 		}
 
+		makeXMlFile(doc);
+	}
+
+	
+	private static void makeXMlFile(Document doc) throws FileNotFoundException, TransformerException {
 		// XML 파일로 쓰기
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 
@@ -71,7 +84,7 @@ public class Main {
 
 		DOMSource source = new DOMSource(doc);
 		StreamResult result = new StreamResult(new FileOutputStream(new File("collection.xml")));
-		
+				
 		transformer.transform(source, result);
 	}
 
