@@ -13,6 +13,8 @@ public class kuir {
 	public static void main(String[] args) throws ParserConfigurationException, IOException, TransformerException, SAXException {
 		System.out.println(args.length);
 		System.out.println(args.toString());
+		
+		
 		if(args.length!=2) {
 			System.out.println("조대현 죽어라");
 			return;
@@ -25,6 +27,10 @@ public class kuir {
 		else if(args[0].equals("-k")) {
 			makeKeyword mk = new makeKeyword(args[1]);
 			mk.createXML();
+		}
+		else if(args[0].equals("-i")) {
+			indexer mi = new indexer(args[1]);
+			mi.readIndexFile();
 		}
 		else {
 			return;
