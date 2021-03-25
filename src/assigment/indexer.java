@@ -93,7 +93,7 @@ public class indexer {
 		}
 
 		createHashMap();
-		toPostFile();
+		//toPostFile();
 	}
 
 	private void createHashMap() {
@@ -105,17 +105,11 @@ public class indexer {
 
 			int totalElements = tempMap.get(key).size();// arrayList의 요소의 갯수를 구한다.
 			String valueStr = "";
-			int index = 0;
-			for(int f = 0; f < 5; f++) {
-				if(index<totalElements&&(((FileData) tempMap.get(key).get(index)).fileID==f)) {
-					double weight = ((FileData) tempMap.get(key).get(index)).frequency
-							* Math.log((double) (fileNum) / totalElements);
-					valueStr += ((FileData) tempMap.get(key).get(index)).fileID + " " + weight + " ";
-					index++;
-				}
-				else {
-					valueStr += f+" 0 ";
-				}
+
+			for(int index=0; index<totalElements; index++) {
+				double weight = ((FileData) tempMap.get(key).get(index)).frequency
+						* Math.log((double) (fileNum) / totalElements);
+				valueStr += ((FileData) tempMap.get(key).get(index)).fileID + " " + String.format("%.2f", weight) + " ";
 			}
 			
 			freMap.put(key, valueStr);
