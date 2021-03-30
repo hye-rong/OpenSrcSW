@@ -93,7 +93,7 @@ public class indexer {
 		}
 
 		createHashMap();
-		//toPostFile();
+		toPostFile();
 	}
 
 	private void createHashMap() {
