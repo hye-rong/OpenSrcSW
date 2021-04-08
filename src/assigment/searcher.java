@@ -97,10 +97,14 @@ public class searcher {
 		for(Integer key : keySetList) {
 			System.out.println("key : " + key + " / " + "value : " + fileSim.get(key));
 		}
-		for(int i=0; i<3; i++) {
-			System.out.println(i+1 + ") " + docTitle.get(keySetList.get(i)));
+		if(keySetList.get(0)==0) {
+			System.out.println("검색 결과가 없습니다.");
+			return;
 		}
-		
+		for(int i=0; i<3; i++) {
+			if(keySetList.get(i)!=0)
+				System.out.println(i+1 + ") " + docTitle.get(keySetList.get(i)));
+		}
 		
 	}
 	
