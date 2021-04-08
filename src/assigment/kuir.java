@@ -10,15 +10,9 @@ import org.xml.sax.SAXException;
 
 public class kuir {
 
-	public static void main(String[] args) throws ParserConfigurationException, IOException, TransformerException, SAXException {
+	public static void main(String[] args) throws ParserConfigurationException, IOException, TransformerException, SAXException, ClassNotFoundException {
 		System.out.println(args.length);
-		System.out.println(args.toString());
 		
-		
-		if(args.length!=2) {
-			System.out.println("조대현 죽어라");
-			return;
-		}
 		
 		if(args[0].equals("-c")) {
 			makeCollection mc = new makeCollection(args[1]);
@@ -31,6 +25,10 @@ public class kuir {
 		else if(args[0].equals("-i")) {
 			indexer mi = new indexer(args[1]);
 			mi.readIndexFile();
+		}
+		else if(args[0].equals("-s")&&args[2].equals("-q")) {
+			searcher search = new searcher(args[1], args[3]);
+			search.test();
 		}
 		else {
 			return;

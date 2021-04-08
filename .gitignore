@@ -1,0 +1,9 @@
+/bin/
+.classpath
+*.class
+*.html
+.settings/org.eclipse.jdt.core.prefs
+index.xml
+lib/kkma-2.1.jar
+index.post
+collection.xml
