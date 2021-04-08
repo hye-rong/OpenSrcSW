@@ -88,7 +88,7 @@ public class searcher {
 		
 		/* 문서 별로 유사도 계산 */
 		for(int i=0; i<fileNum; i++) {
-			fileSim.put(i,calcSim(i));
+			fileSim.put(i,InnerProduct(i));
 		}
 		
 		/* 정렬 */
@@ -97,28 +97,21 @@ public class searcher {
 		for(Integer key : keySetList) {
 			System.out.println("key : " + key + " / " + "value : " + fileSim.get(key));
 		}
-<<<<<<< HEAD
+
 		if(keySetList.get(0)==0) {
 			System.out.println("검색 결과가 없습니다.");
 			return;
 		}
+
 		for(int i=0; i<3; i++) {
 			if(keySetList.get(i)!=0)
 				System.out.println(i+1 + ") " + docTitle.get(keySetList.get(i)));
 		}
 		
-=======
-		for(int i=0; i<3; i++) {
-			System.out.println(i+1 + ") " + docTitle.get(keySetList.get(i)));
-		}
-		
-		
->>>>>>> feature
 	}
 	
 	
 	private double calcSim(int i) {
-<<<<<<< HEAD
 		double sum = 0;
 		Iterator<String> keys = queryMap.keySet().iterator();
 		while (keys.hasNext()) {
@@ -128,33 +121,37 @@ public class searcher {
 				for(int index=0; index<split.length; index+=2) {
 					if(Integer.parseInt(split[index])==i) {
 						sum += Math.pow(Double.parseDouble(split[index+1]),2);
-=======
-		System.out.println("    DOCUMENT ===> "+ i);
-		double sim = 0;
-		Iterator<String> keys = queryMap.keySet().iterator();
-		while (keys.hasNext()) {
-			//keyword가져옴
-			String key = keys.next();
-			//indexMap에서 해당 key찾음 -> 있으면 value 가져옴
-			if(indexMap.containsKey(key)){
-				//value에서 원하는 id의 값 가져옴 공백으로 split
-				String[] split = indexMap.get(key).split(" ");
-				for(int index=0; index<split.length; index+=2) {
-					if(Integer.parseInt(split[index])==i) {
-						sim += queryMap.get(key)*Double.parseDouble(split[index+1]);
->>>>>>> feature
 						break;
 					}
 				}
 			}
 		}
-<<<<<<< HEAD
-		double rValue = 1/(2*Math.sqrt(sum));
+		
+		double rValue = InnerProduct(i)/(2*Math.sqrt(sum));
 		return rValue;
-=======
+	}
+	
+	
+	private double InnerProduct(int i) {
+		double sim = 0;
+		Iterator<String> keys = queryMap.keySet().iterator();
+		while (keys.hasNext()) {
+			String key = keys.next();
+			if(indexMap.containsKey(key)){
+				String[] split = indexMap.get(key).split(" ");
+				for(int index=0; index<split.length; index+=2) {
+					if(Integer.parseInt(split[index])==i) {
+						sim += queryMap.get(key)*Double.parseDouble(split[index+1]);
+
+						break;
+					}
+				}
+			}
+		}
+
 		System.out.println("최종 : "+sim);
 		return sim;
->>>>>>> feature
+
 	}
 	
 	
